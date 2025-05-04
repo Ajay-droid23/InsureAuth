@@ -1,0 +1,12 @@
+.policy-button{
+    transition: transform 0.3s ease-in-out;
+}
+.policy-button:hover{
+    transform: scale(1.05);
+}
+.policy-button,
+.policy-button:hover,
+.policy-button:focus,
+.policy-button:active{
+    color: black !important;
+}
