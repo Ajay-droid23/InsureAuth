@@ -5,7 +5,6 @@ InsureAuth is a MERN stack application designed to provide authentication and in
 
 ## Features
 - User authentication (sign up, login, logout)
-- Insurance policy management
 - Secure data handling
 - Responsive design
 
@@ -35,7 +34,7 @@ InsureAuth is a MERN stack application designed to provide authentication and in
 
 4. **Install frontend dependencies**:
     ```bash
-    cd ../frontend
+    cd frontend
     npm install
     ```
 
@@ -44,12 +43,12 @@ InsureAuth is a MERN stack application designed to provide authentication and in
 1. **Start the backend server**:
     ```bash
     cd backend
-    npm start
+    npm run server
     ```
 
 2. **Start the frontend server**:
     ```bash
-    cd ../frontend
+    cd frontend
     npm start
     ```
 
@@ -62,6 +61,5 @@ Feel free to fork the repository and submit pull requests. For major changes, pl
 ## License
 This project is licensed under the MIT License.
 
-## Contact
-For any inquiries, please contact [your email].
+
 
