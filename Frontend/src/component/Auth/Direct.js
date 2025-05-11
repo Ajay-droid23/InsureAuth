@@ -10,8 +10,8 @@ import AgentPage from "../homepage/AgentPage";
 
 const Direct = () => {
   return (
-    <div>  <Router>
-  
+    <div>  
+    <Router>
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/admin" element={<AdminPage/>}/>
@@ -19,9 +19,7 @@ const Direct = () => {
       <Route path="/signupp" element={<Signupp />} />
       <Route path="/forgot-password" element={<ForgotPassword/>}/>
       <Route path="/customer" element={<CustomerPage/>}/>
-      <Route path="/agent" element={<AgentPage/>}/>
-      
-          
+      <Route path="/agent" element={<AgentPage/>}/>      
     </Routes>
   </Router>
   </div>

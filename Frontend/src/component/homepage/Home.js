@@ -5,7 +5,7 @@ import Mainn from './Mainn';
 import Sub from './Sub';
 import Main2 from './Main2';
 import Sub2 from './Sub2';
-import Footer from './Footer';
+// import Footer from './Footer';
 
 const Home = () => {
   
@@ -22,7 +22,7 @@ const Home = () => {
       <Main2 />
       <Sub />
       <Sub2 />
-      <Footer/>
+      {/* <Footer/> */}
         
     </div>
   );

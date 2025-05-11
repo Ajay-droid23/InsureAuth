@@ -17,10 +17,13 @@ import icon16 from './images/download (23) 1.png';
 import icon17 from './images/download (24) 1.png';
 import icon18 from './images/download (15) 1 (1).png';
 import icon19 from './images/images 1 (1).png';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
 const Main2 = () => {
+    const navigate = useNavigate();
     return (
   
         <div className='home_main2'>
@@ -56,7 +59,7 @@ const Main2 = () => {
            </div>
           
            </div>
-           <button className='main_claim_btn' style={{width:'auto'}}>Claim & more</button>
+           <button className='main_claim_btn' onClick={() => navigate("/loginn")} style={{width:'auto'}}>Claim & more</button>
            
         </div>
  

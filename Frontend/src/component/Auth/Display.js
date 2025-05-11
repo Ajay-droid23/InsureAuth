@@ -3,7 +3,8 @@ import Loginn from './Loginn'
 import Signupp from './Signupp'
 const Display = () => {
   return (
-    <div> <Loginn/>
+    <div> 
+    <Loginn/>
     <Signupp/>
 </div>
   )

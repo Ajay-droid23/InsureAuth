@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, Button, Form, Spinner, Alert, Image } from 'react-bootstrap';
 import axios from 'axios';
+import Custui from './Custui';
 
 
 const CustomerPage = () => {
@@ -213,8 +214,8 @@ const CustomerPage = () => {
       </header>
 
       {/* Main Content */}
-      <div className="text-center mt-5 pt-5">
-        <h1 className="display-3">CUSTOMER PANEL</h1>
+      <div className="text-center  pt-5">
+        <Custui/>
       </div>
 
       {/* Profile Modal */}
@@ -458,3 +459,5 @@ const CustomerPage = () => {
 };
 
 export default CustomerPage;
+
+

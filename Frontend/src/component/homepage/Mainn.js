@@ -32,7 +32,7 @@ const Mainn = () => {
             </div>
           
             <div className="home_main_mid_divs">
-             <Button className='btn btn-warning w-50 mb-4'>Get Details</Button>
+             <Button className='btn btn-success w-50 mb-4'>Get Details</Button>
             </div>
   
             <div className="home_main_mid_divs">

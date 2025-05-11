@@ -46,7 +46,9 @@
   text-align: center;
 }
 
-
+.z-index {
+  z-index: 1000;
+}
 .home_main_child {
   width: 33.33%;
   float: left;
@@ -483,6 +485,13 @@ ul {
   border-radius: 25px;
   color: white;
   cursor: pointer;
+  font-size: 15px;
+}
+.btn-success{
+  background-color: #44cb86;
+  color: white;
+ border-radius: 16px;
+  text-decoration: none;
 }
 .btn-gg{
   margin-top: 20px;

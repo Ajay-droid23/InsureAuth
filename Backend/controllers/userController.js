@@ -1,124 +1,99 @@
 const User = require('../models/User');
-const { sendOTPEmail } = require('../utils/emailService');
-const generateOTP = require('../utils/otpService');
+const bcrypt = require('bcryptjs');
+const path = require('path');
 
-const updateUser = async (req, res) => {
+// Get user profile
+exports.getUser = async (req, res) => {
   try {
+    // Verify the requested email matches the token's email
     if (req.params.email !== req.user.email) {
       return res.status(403).json({ error: 'Unauthorized' });
     }
-    const updates = {};
-    if (req.body.name) updates.name = req.body.name;
-    if (req.body.vehicleno) updates.vehicleno = req.body.vehicleno;
-    if (req.body.gender) updates.gender = req.body.gender;
-    if (req.file) updates.profilePicture = `/profile-pictures/${req.file.filename}`;
-    const user = await User.findOneAndUpdate({ email: req.params.email }, { $set: updates }, { new: true });
-    res.json({ name: user.name, email: user.email, vehicleno: user.vehicleno, gender: user.gender, profilePicture: user.profilePicture });
-  } catch (error) {
-    res.status(500).json({ error: 'Error updating user' });
-  }
-};
 
-const changePassword = async (req, res) => {
-  try {
-    const { oldPassword, newPassword } = req.body;
-    if (req.params.email !== req.user.email) {
-      return res.status(403).json({ error: 'Unauthorized' });
-    }
     const user = await User.findOne({ email: req.params.email });
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    if (user.password !== oldPassword) {
-      return res.status(400).json({ error: 'Old password is incorrect' });
-    }
-    user.password = newPassword;
-    await user.save();
-    res.json({ message: 'Password updated successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Error changing password' });
-  }
-};
-
-const getUser = async (req, res) => {
-  try {
-    if (req.params.email !== req.user.email) {
-      return res.status(403).json({ error: 'Unauthorized' });
-    }
-    const user = await User.findOne({ email: req.params.email });
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
+    
     res.json({
       name: user.name,
       email: user.email,
-      vehicleno: user.vehicleno,
       gender: user.gender,
       role: user.role,
       profilePicture: user.profilePicture
     });
   } catch (error) {
+    console.error('Error fetching user data:', error);
     res.status(500).json({ error: 'Error fetching user data' });
   }
 };
 
-const requestPasswordReset = async (req, res) => {
-  const { email } = req.body;
+// Update user profile
+exports.updateUser = async (req, res) => {
   try {
-    const user = await User.findOne({ email });
+    if (req.params.email !== req.user.email) {
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
+
+    const updates = {};
+    if (req.body.name) updates.name = req.body.name;
+    if (req.body.gender) updates.gender = req.body.gender;
+    
+    // Handle profile picture upload
+    if (req.file) {
+      updates.profilePicture = `/profile-pictures/${req.file.filename}`;
+    }
+
+    const user = await User.findOneAndUpdate(
+      { email: req.params.email },
+      { $set: updates },
+      { new: true }
+    );
+
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    const otp = generateOTP();
-    user.resetPasswordOTP = otp;
-    user.resetPasswordOTPExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes expiry
-    await user.save();
-    await sendOTPEmail(email, otp);
-    res.status(200).json({ message: 'OTP sent to email' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error sending OTP' });
-  }
-};
 
-const verifyResetOTP = async (req, res) => {
-  const { email, otp } = req.body;
-  try {
-    user = await User.findOne({
-      email,
-      resetPasswordOTP: otp,
-      resetPasswordOTPExpiry: { $gt: Date.now() }
+    res.json({
+      name: user.name,
+      email: user.email,
+      gender: user.gender,
+      profilePicture: user.profilePicture
     });
-    if (!user) {
-      return res.status(400).json({ error: 'Invalid or expired OTP' });
-    }
-    user.resetPasswordOTP = null;
-    user.resetPasswordOTPExpiry = null;
-    user.resetPasswordVerified = true;
-    await user.save();
-    res.status(200).json({ message: 'OTP verified successfully' });
   } catch (error) {
-    res.status(500).json({ error: 'Error verifying OTP' });
+    console.error('Error updating user:', error);
+    res.status(500).json({ error: 'Error updating user' });
   }
 };
 
-const resetPassword = async (req, res) => {
-  const { email, password } = req.body;
+// Change user password
+exports.changePassword = async (req, res) => {
   try {
-    const user = await User.findOne({
-      email,
-      resetPasswordVerified: true
-    });
-    if (!user) {
-      return res.status(400).json({ error: 'OTP not verified or session expired' });
+    const { oldPassword, newPassword } = req.body;
+    
+    if (req.params.email !== req.user.email) {
+      return res.status(403).json({ error: 'Unauthorized' });
     }
-    user.password = password;
-    user.resetPasswordVerified = false;
+
+    const user = await User.findOne({ email: req.params.email }).select('+password');
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Verify old password
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: 'Old password is incorrect' });
+    }
+
+    // Hash and save new password
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
     await user.save();
-    res.status(200).json({ message: 'Password updated successfully' });
+
+    res.json({ message: 'Password updated successfully' });
   } catch (error) {
-    res.status(500).json({ error: 'Error resetting password' });
+    console.error('Error changing password:', error);
+    res.status(500).json({ error: 'Error changing password' });
   }
 };
-
-module.exports = { updateUser, changePassword, getUser, requestPasswordReset, verifyResetOTP, resetPassword };

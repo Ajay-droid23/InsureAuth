@@ -1,0 +1,10 @@
+# Ignore environment variable files
+.env
+
+# Ignore node_modules directory
+node_modules/
+
+# Other common files and directories to ignore
+.DS_Store
+*.log
+*.tmp

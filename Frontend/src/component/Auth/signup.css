@@ -1,0 +1,289 @@
+.auth-page {
+  min-height: 100vh;
+  background: #6029cc;
+  display: flex;
+  align-items: center;
+}
+
+/* Card styling */
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card-header {
+  border-bottom: none;
+}
+
+/* Step progress bar styling */
+.step-progress .progress {
+  height: 8px;
+  border-radius: 4px;
+  background-color: #e9ecef;
+}
+
+.step-item {
+  text-align: center;
+  position: relative;
+  width: 33.33%;
+}
+
+.step-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 8px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.step-item.active .step-circle {
+  background-color:  #361c6b;
+  color: white;
+}
+
+.step-text {
+  font-size: 0.8rem;
+  color: #6c757d;
+  transition: all 0.3s ease;
+}
+
+.step-item.active .step-text {
+  color: #000000;
+  font-weight: 600;
+}
+
+/* Form styling */
+.form-control, .form-select {
+  height: 50px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  padding: 10px 16px;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+.card-color{
+    background-color: #361c6b;
+}
+.input-group-text {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.input-group .form-control {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Button styling */
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+  border-color: #0062cc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+.btn-outline-secondary:hover {
+  transform: translateY(-2px);
+}
+
+/* Signup image container */
+.signup-image-container, .login-image-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 100%;
+  min-height: 600px;
+  background-color: #3f1d83ab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.632);
+}
+
+.signup-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://cdn3d.iconscout.com/3d/premium/thumb/car-insurance-9476436-7767110.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.2;
+  z-index: 1;
+  
+}
+
+.login-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://cdn3d.iconscout.com/3d/premium/thumb/car-insurance-9848657-7994011.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  z-index: 1;
+  display: none;
+}
+
+.signup-content, .login-content {
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+}
+
+/* Feature items on signup page */
+.features-list {
+  margin-top: 2rem;
+}
+
+.feature-item {
+  background-color: rgba(0, 0, 0, 0.443);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.feature-icon {
+  background-color: rgb(53, 150, 54);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  color: white;
+}
+.card-footer{
+    border: none;
+}
+.feature-text {
+  text-align: left;
+}
+
+.feature-text h5 {
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.feature-text p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0;
+}
+
+/* Password strength meter */
+.password-tips {
+  font-size: 0.75rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+  .auth-page {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+/* Login specific styles */
+.forgot-password-link {
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+}
+
+.login-divider {
+  text-align: center;
+  position: relative;
+}
+
+.login-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #dee2e6;
+}
+
+.login-divider span {
+  position: relative;
+  background-color: white;
+  padding: 0 1rem;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.social-btn {
+  padding: 0.5rem 0;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.imput{
+    height: 40px;
+    font-size: 15px;
+}
+/* Animation for alerts */
+.alert {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
