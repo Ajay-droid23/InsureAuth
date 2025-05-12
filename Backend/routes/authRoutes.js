@@ -13,6 +13,6 @@ router.post('/login', login);
 router.post('/request-password-reset',requestPasswordReset);
 router.post('/verify-reset-otp', verifyResetOTP);
 router.post('/reset-password', resetPassword);
-// router.post('/resend-reset-otp', resendResetOTP);
+
 
 module.exports = router;

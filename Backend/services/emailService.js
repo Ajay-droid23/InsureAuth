@@ -41,7 +41,7 @@ exports.sendOTPEmail = async (email, otp) => {
   }
 };	 
 
-//
+// register mail template
 exports.getRegisterMailTemplate = (email, role) => {
     const greeting = role === 'agent' ? 'Agent' : 'Customer'
   return transporter.sendMail({
@@ -128,7 +128,7 @@ exports.getRegisterMailTemplate = (email, role) => {
   });
 };
 
-
+// send otp logic
 exports.sendOTP = async (req, res) => {
   const { email } = req.body;
   const otp = generateOTP();
