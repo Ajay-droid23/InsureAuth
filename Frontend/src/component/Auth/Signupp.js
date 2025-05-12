@@ -25,6 +25,7 @@ import {
   FaUserPlus,
 } from 'react-icons/fa';
 import './signup.css';
+import { set } from "mongoose";
 
 function Signupp() {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ function Signupp() {
     contact: "",
     gender: "",
     role: "customer",
+    agentCode: "",
     password: "",
     confirmPassword: "",
     otp: ""
@@ -49,6 +51,7 @@ function Signupp() {
   const [step, setStep] = useState(1);
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
+  const [role,setRole] = useState("customer");
 
   // Password strength logic
   useEffect(() => {
@@ -78,9 +81,9 @@ function Signupp() {
   //all fields filled in each step logic
   const allFieldsFilled = () => {
     if (step === 1) {
-      return user.name && user.email  && user.gender && user.role;
+       return user.name && user.email  && user.gender && user.role;
     } else if (step === 2) {
-      return user.password && user.confirmPassword;
+      return user.agentCode && user.password && user.confirmPassword;
     }
     return false;
   };
@@ -96,18 +99,24 @@ function Signupp() {
     e.preventDefault();
     setLoading(true);
     
-    if (!allFieldsFilled()) {
-      setError("All fields are required.");
-      setLoading(false);
-      return;
-    }
+    // if (!allFieldsFilled()) {
+    //   setError("All fields are required.");
+    //   setLoading(false);
+    //   return;
+    // }
   
     if (user.password !== user.confirmPassword) {
       setError("Passwords do not match.");
       setLoading(false);
       return;
     }
-  
+    
+    if(user.role === "agent" && user.agentCode !== "#agentin"){
+      setError("Invalid Agent Code");
+      setLoading(false);
+      return;
+    }
+
     if (user.password.length < 6) {
       setError("Password must be at least 6 characters.");
       setLoading(false);
@@ -210,6 +219,13 @@ function Signupp() {
       setError("Please enter your email");
       return;
     }
+
+   
+
+    if (step === 1 && ! /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)){
+      setError("Please enter a valid email address");
+      return;
+    }
    
     if (step === 1 && !user.gender) {
       setError("Please select your gender");
@@ -265,20 +281,7 @@ function Signupp() {
               </InputGroup>
             </Form.Group>
 
-            {/* <Form.Group className="mb-4">
-              <InputGroup>
-                <InputGroup.Text className="card-color text-white">
-                  <FaCar />
-                </InputGroup.Text>
-                <Form.Control
-                  type="text"
-                  name="vehicleno"
-                  placeholder="Vehicle Registration Number"
-                  value={user.vehicleno}
-                  onChange={handleChange}
-                />
-              </InputGroup>
-            </Form.Group> */}
+           
 
             <Form.Group className="mb-4">
               <InputGroup > 
@@ -330,7 +333,7 @@ function Signupp() {
       case 2:
         return (
           <>
-            {/* {user.role === "admin" && (
+            {user.role === "agent" && (
               <Form.Group className="mb-4">
                 <InputGroup>
                   <InputGroup.Text className="card-color text-white">
@@ -338,14 +341,14 @@ function Signupp() {
                   </InputGroup.Text>
                   <Form.Control
                     type="text"
-                    name="adminCode"
-                    placeholder="Admin Code"
-                    value={user.adminCode}
+                    name="agentCode"
+                    placeholder="Agent Code"
+                    value={user.agentCode}
                     onChange={handleChange}
                   />
                 </InputGroup>
               </Form.Group>
-            )} */}
+            )}
 
             <Form.Group className="mb-3">
               <InputGroup>
@@ -418,7 +421,7 @@ function Signupp() {
                 variant="primary"
                 onClick={handleSendOtp}
                 size="sm"
-                disabled={!allFieldsFilled() || loading}
+                // disabled={!allFieldsFilled() || loading}
                 style={{ backgroundColor: " #361c6b", borderColor: "#007bff" }}
               >
                 {loading ? (

@@ -31,32 +31,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-  
-  //   try {
-  //     const response = await axios.post('http://localhost:5000/auth/login', { email, password });
-  //     const { role, user, token } = response.data;
-  //    console.log(role)
-  //     // Store user data and token in localStorage
-  //     localStorage.setItem('user', JSON.stringify(user));
-  //     localStorage.setItem('token', token);
-  
-  //     if (role === "admin") {
-  //       navigate("/admin");
-  //     } else if (role === "agent") {
-  //       navigate("/agent");
-  //     } else {
-  //       navigate("/customer");
-  //     }
-  //   } catch (error) {
-  //     setError("Invalid email or password. Please try again.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,8 +39,8 @@ const Login = () => {
   
     try {
       const response = await axios.post('http://localhost:5000/auth/login', { email, password });
-      const { user, token } = response.data; // Remove role from here
-      console.log(user.role); // Access role from user object
+      const { user, token } = response.data; 
+   
       // Store user data and token in localStorage
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('token', token);
