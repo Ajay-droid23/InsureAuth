@@ -7,13 +7,14 @@ const { generateOTP } = require('../services/otpService');
 const secretKey = process.env.JWT_SECRET || 'your-very-secure-secret-key';
 
 
+// Login logic
 exports.login = async (req, res) => {
   const { email, password } = req.body;
-  
+
   try {
     // Find user and include password field
     const user = await User.findOne({ email }).select('+password');
-    
+
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -40,10 +41,11 @@ exports.login = async (req, res) => {
 
     // Create JWT token
     const token = jwt.sign(
-      { 
+      {
         userId: user._id,
         email: user.email,
-        role: user.role 
+        role: user.role,
+        profilePicture: user.profilePicture
       },
       secretKey,
       { expiresIn: '1h' }
@@ -94,10 +96,11 @@ exports.sendOTP = async (req, res) => {
         verified: false
       });
     } else {
-      // Update existing user's OTP
-      user.otp = otp;
-      user.otpExpiry = otpExpiry;
-      user.verified = false;
+      res.status(500).json({
+      success: false,
+      message: 'Failed to send OTP',
+      error: error.message
+    });
     }
 
     await user.save();

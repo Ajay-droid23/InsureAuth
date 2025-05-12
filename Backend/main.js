@@ -42,6 +42,7 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model('User', userSchema);
+const secretKey = process.env.JWT_SECRET ;
 
 const authenticateJWT = (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
@@ -234,7 +235,6 @@ app.put('/user/:email/change-password', authenticateJWT, async (req, res) => {
 
 
 
-const secretKey = process.env.JWT_SECRET || 'your-very-secure-secret-key';
 
 // Add this middleware to verify JWT tokens
 

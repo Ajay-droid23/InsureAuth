@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import { Home, FileText, ShoppingBag, HelpCircle, User } from 'lucide-react';
 
-export default function Custui() {
+export default function AdminUI() {
   const [activeItem, setActiveItem] = useState('My Insurance');
   
   const menuItems = [
-    { name: 'My Insurance', icon: <Home size={20} /> },
+    { name: 'Insurance', icon: <Home size={20} /> },
     { name: 'Requests', icon: <FileText size={20} /> },
-    { name: 'Purchase History', icon: <ShoppingBag size={20} /> },
-    { name: 'Help and Support', icon: <HelpCircle size={20} /> }
+    { name: 'Customer Payments', icon: <ShoppingBag size={20} /> },
+    { name: 'Raised tickets', icon: <HelpCircle size={20} /> }
   ];
   
   const renderContent = () => {
-    
+   
         return (
           <div className="p-4">
             <h2 className='display-5 mt-5'>Select an option from the sidebar</h2>
@@ -25,15 +25,7 @@ export default function Custui() {
     <div className="d-flex vh-100">
       {/* Sidebar */}
       <div className="bg-dark text-white" style={{ width: '250px' }}>
-        {/* <div className="p-3 border-bottom border-secondary">
-          <div className="d-flex align-items-center">
-            <User size={24} className="me-2" />
-            <div>
-              <div className="fw-medium">John Doe</div>
-              <div className="small text-secondary">Premium Member</div>
-            </div>
-          </div>
-        </div> */}
+      
         <nav>
           <ul className="nav flex-column py-5">
             {menuItems.map((item) => (

@@ -19,10 +19,12 @@ app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
+
+
 // Routes
 app.use('/auth', authRoutes);
 app.use('/', userRoutes);
 
-// Error handling middleware would go here
+
 
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));

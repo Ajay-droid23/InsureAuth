@@ -30,21 +30,49 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  
+  //   try {
+  //     const response = await axios.post('http://localhost:5000/auth/login', { email, password });
+  //     const { role, user, token } = response.data;
+  //    console.log(role)
+  //     // Store user data and token in localStorage
+  //     localStorage.setItem('user', JSON.stringify(user));
+  //     localStorage.setItem('token', token);
+  
+  //     if (role === "admin") {
+  //       navigate("/admin");
+  //     } else if (role === "agent") {
+  //       navigate("/agent");
+  //     } else {
+  //       navigate("/customer");
+  //     }
+  //   } catch (error) {
+  //     setError("Invalid email or password. Please try again.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
   
     try {
       const response = await axios.post('http://localhost:5000/auth/login', { email, password });
-      const { role, user, token } = response.data;
-  
+      const { user, token } = response.data; // Remove role from here
+      console.log(user.role); // Access role from user object
       // Store user data and token in localStorage
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('token', token);
   
-      if (role === "admin") {
+      if (user.role === "admin") {
         navigate("/admin");
-      } else if (role === "agent") {
+      } else if (user.role === "agent") {
         navigate("/agent");
       } else {
         navigate("/customer");
@@ -55,7 +83,6 @@ const Login = () => {
       setLoading(false);
     }
   };
-  
   return (
     <Container fluid className="auth-page py-5">
       <Row className="justify-content-center">

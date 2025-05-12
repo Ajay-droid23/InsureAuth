@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Home, FileText, ShoppingBag, HelpCircle, User } from 'lucide-react';
 
-export default function Custui() {
+export default function AgentUI() {
   const [activeItem, setActiveItem] = useState('My Insurance');
   
   const menuItems = [
@@ -12,7 +12,7 @@ export default function Custui() {
   ];
   
   const renderContent = () => {
-    
+   
         return (
           <div className="p-4">
             <h2 className='display-5 mt-5'>Select an option from the sidebar</h2>

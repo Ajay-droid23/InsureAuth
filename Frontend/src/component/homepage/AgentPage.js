@@ -3,6 +3,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, Button, Form, Spinner, Alert, Image } from 'react-bootstrap';
 import axios from 'axios';
+import AgentUI from './AgentUI';
+import logo from "./images/logo-text.png";
+
 
 
 const AgentPage = () => {
@@ -188,7 +191,7 @@ const AgentPage = () => {
     <div>
       {/* Header */}
       <header className="d-flex justify-content-between align-items-center p-3 bg-light shadow-sm fixed-top">
-        <div className="fs-4 fw-bold text-primary">Insure LTD</div>
+      <img src={logo} alt="Logo" style={{ width: '150px' }} />
         <div 
           onClick={handleProfileClick}
           className="d-flex align-items-center justify-content-center rounded-circle bg-primary text-white"
@@ -202,7 +205,7 @@ const AgentPage = () => {
         >
           {user?.profilePicture ? (
             <Image 
-              src={`http://localhost:5000${user.profilePicture}`} 
+              src={`http://localhost:5000/public/${user.profilePicture}`} 
               roundedCircle 
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
@@ -213,8 +216,8 @@ const AgentPage = () => {
       </header>
 
       {/* Main Content */}
-      <div className="text-center mt-5 pt-5">
-        <h1 className="display-3">AGENT PANEL</h1>
+      <div className="text-center  pt-5">
+        <AgentUI />
       </div>
 
       {/* Profile Modal */}
@@ -231,7 +234,7 @@ const AgentPage = () => {
             <div className="position-relative d-inline-block">
               {user?.profilePicture ? (
                 <Image 
-                  src={`http://localhost:5000${user.profilePicture}`}
+                  src={`http://localhost:5000/public/${user.profilePicture}`}
                   roundedCircle
                   style={{ width: '80px', height: '80px', objectFit: 'cover' }}
                   className="border border-2 border-primary"
@@ -258,7 +261,7 @@ const AgentPage = () => {
             <input 
               type="file" 
               ref={fileInputRef}
-              accept="image/*"
+              // accept="image/*"
               className="d-none"
               onChange={(e) => {
                 if (e.target.files[0]) {
@@ -307,20 +310,7 @@ const AgentPage = () => {
               <div className="p-2 bg-light rounded small">{user?.email || 'Not provided'}</div>
             </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label className="small text-muted mb-1">Vehicle Number</Form.Label>
-              {editMode ? (
-                <Form.Control
-                  type="text"
-                  name="vehicleno"
-                  value={formData.vehicleno || ''}
-                  onChange={handleInputChange}
-                  size="sm"
-                />
-              ) : (
-                <div className="p-2 bg-light rounded small">{user?.vehicleno || 'Not provided'}</div>
-              )}
-            </Form.Group>
+         
 
             <Form.Group className="mb-3">
               <Form.Label className="small text-muted mb-1">Gender</Form.Label>

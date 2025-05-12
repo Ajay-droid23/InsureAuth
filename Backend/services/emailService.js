@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-
+// otp mail template
 exports.sendOTPEmail = async (email, otp) => {
   try {
     const mailOptions = {
@@ -41,7 +41,7 @@ exports.sendOTPEmail = async (email, otp) => {
   }
 };	 
 
-
+//
 exports.getRegisterMailTemplate = (email, role) => {
     const greeting = role === 'agent' ? 'Agent' : 'Customer'
   return transporter.sendMail({

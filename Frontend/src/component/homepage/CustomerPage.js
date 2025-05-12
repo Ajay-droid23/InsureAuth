@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Modal, Button, Form, Spinner, Alert, Image } from 'react-bootstrap';
 import axios from 'axios';
 import Custui from './Custui';
+import logo from "./images/logo-text.png";
 
 
 const CustomerPage = () => {
@@ -143,7 +144,7 @@ const CustomerPage = () => {
         `http://localhost:5000/user/${user.email}/change-password`,
         {
           oldPassword: passwordData.oldPassword,
-          newPassword: passwordData.newPassword
+          newPassword: passwordData.newPassword 
         },
         {
           headers: { 'Authorization': `Bearer ${token}` }
@@ -189,7 +190,7 @@ const CustomerPage = () => {
     <div>
       {/* Header */}
       <header className="d-flex justify-content-between align-items-center p-3 bg-light shadow-sm fixed-top">
-        <div className="fs-4 fw-bold text-primary">Insure LTD</div>
+        <img src={logo} alt="Logo" className="logo" style={{ width: '150px' }} />
         <div 
           onClick={handleProfileClick}
           className="d-flex align-items-center justify-content-center rounded-circle bg-primary text-white"
@@ -203,7 +204,7 @@ const CustomerPage = () => {
         >
           {user?.profilePicture ? (
             <Image 
-              src={`http://localhost:5000${user.profilePicture}`} 
+              src={`http://localhost:5000/public/${user.profilePicture}`} 
               roundedCircle 
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
@@ -219,7 +220,7 @@ const CustomerPage = () => {
       </div>
 
       {/* Profile Modal */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered size="md">
+      <Modal show={showModal} onHide={() => setShowModal(false)}  centered size="md">
         <Modal.Header closeButton className="border-0 pb-0">
           <Modal.Title className="fs-5">
          
@@ -232,7 +233,7 @@ const CustomerPage = () => {
             <div className="position-relative d-inline-block">
               {user?.profilePicture ? (
                 <Image 
-                  src={`http://localhost:5000${user.profilePicture}`}
+                  src={`http://localhost:5000/public/${user.profilePicture}`}
                   roundedCircle
                   style={{ width: '80px', height: '80px', objectFit: 'cover' }}
                   className="border border-2 border-primary"
@@ -308,7 +309,7 @@ const CustomerPage = () => {
               <div className="p-2 bg-light rounded small">{user?.email || 'Not provided'}</div>
             </Form.Group>
 
-            <Form.Group className="mb-3">
+            {/* <Form.Group className="mb-3">
               <Form.Label className="small text-muted mb-1">Vehicle Number</Form.Label>
               {editMode ? (
                 <Form.Control
@@ -321,7 +322,7 @@ const CustomerPage = () => {
               ) : (
                 <div className="p-2 bg-light rounded small">{user?.vehicleno || 'Not provided'}</div>
               )}
-            </Form.Group>
+            </Form.Group> */}
 
             <Form.Group className="mb-3">
               <Form.Label className="small text-muted mb-1">Gender</Form.Label>
@@ -332,7 +333,7 @@ const CustomerPage = () => {
                   onChange={handleInputChange}
                   size="sm"
                 >
-                  <option value="">Select</option>
+                  <option value="">{user?.gender}</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Other">Other</option>
